@@ -2,21 +2,19 @@
 <html>
 	<title>This is the compass sample app</title>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
 
-		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<link rel="stylesheet" type="text/css" href="jquery.mobile-1.3.2.css">
 		<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script>
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="jquery.js"></script>
+		<script src="jquery.mobile-1.3.2.js"></script>
 		<script type="text/javascript" charset="utf-8" src="script/jquery.rotate-1.0.1.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-		
-
 
 		<style>
 			#compass {
 
-				position: relative; 
+				position: relative;
 				top: 0px;
 				z-index: 1;
 			}
@@ -44,9 +42,8 @@
 				background: transparent;
 			}
 		</style>
-		
+
 		<script>
-		
 			var watchID = null;
 			document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -57,14 +54,16 @@
 			}
 
 			function startCompass() {
-				var options = { frequency: 50 };
+				var options = {
+					frequency : 50
+				};
 
-        		watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+				watchID = navigator.compass.watchHeading(onSuccess, onError, options);
 			}
 
 			function onSuccess(heading) {
-        		$("#heading").html('Heading: ' + heading.magneticHeading);
-        		$("#needle").jqrotate(-heading.magneticHeading);
+				$("#heading").html('Heading: ' + heading.magneticHeading);
+				$("#needle").jqrotate(-heading.magneticHeading);
 
 			}
 
@@ -120,8 +119,6 @@
 
 	<body  >
 
-		
-
 		<div data-role="page" id="page1" >
 
 			<div data-role="header" data-position="fixed" >
@@ -131,7 +128,9 @@
 
 			<div data-role="content" align="center">
 				<h3>Compass Test title</h3>
-				<div id="heading">Waiting for heading...</div>
+				<div id="heading">
+					Waiting for heading...
+				</div>
 				<img src="images/Compass_Card_transparent.png" id="compass" alt="compass" width="250" height="250"/>
 				<img src="images/compass-needle.png" id="needle" alt="needle" width="250" height="250"/>
 				<img src="images/family-background.jpg" id="bg"  width="250" />
@@ -145,8 +144,6 @@
 				<button onclick="windowOpen()">
 					open Window
 				</button>
-				
-				
 
 			</div>
 
@@ -155,8 +152,6 @@
 			</div>
 
 		</div>
-		
-		
 
 	</body>
 
