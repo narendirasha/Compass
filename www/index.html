@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<title>This is the compass sample app</title>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script>
+		<script src="script/jquery.rotate-1.0.1.js"></script>
+
+		<style>
+			#compass {
+
+				position: relative;
+				top: 0px;
+				z-index: 1;
+			}
+
+			#needle {
+
+				position: relative;
+				top: -252.5px;
+				z-index: 10;
+			}
+
+			#bg {
+				position: relative;
+				top: -210px;
+			}
+
+			body {
+				background: url("images/background-image-2.gif") !important;
+				background-size: 100% 100%;
+			}
+			.ui-page {
+				background: transparent;
+			}
+			.ui-content {
+				background: transparent;
+			}
+		</style>
+
+	</head>
+
+	<body  >
+
+		<div data-role="page" id="page1" data-theme="e">
+
+			<div data-role="header" data-position="fixed" >
+				<h1>Compass</h1>
+
+			</div>
+
+			<div data-role="content" align="center">
+				<h3>Compass Test title</h3>
+				<img src="images/Compass_Card_transparent.png" id="compass" alt="compass" width="250" height="250"/>
+				<img src="images/compass-needle.png" id="needle" alt="needle" width="250" height="250"/>
+				<img src="images/family-background.jpg" id="bg"  width="250" />
+
+				<button  onclick="playBeep()">
+					Beep
+				</button>
+				<button onclick="vibrate()">
+					Vibrate
+				</button>
+				<button onclick="windowOpen()">
+					open Window
+				</button>
+
+			</div>
+
+			<div data-role="footer" data-position="fixed"  >
+				<h4>&copy; 2013 Naren</h4>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>
+<script>
+	document.addEventListener("deviceready", onDeviceReady, false)
+
+	function onDeviceReady() {
+
+		startCompass();
+		
+
+	}
+
+	function startCompass() {
+		var options = {
+			frequency : 50
+		};
+
+		navigator.compass.watchHeading(onSuccess, onError, options);
+	}
+
+	function onSuccess(heading) {
+		$("#needle").jqrotate(-heading.magneticHeading);
+
+	}
+
+	function onError(error) {
+		alert("Compass error :" + error.code)
+	}
+	// Beep three times
+    function playBeep(){
+    	navigator.notification.beep(3);
+    }
+    // Vibrate for 1 seconds
+    function vibrate(){
+    	navigator.notification.vibrate(1000);
+    }
+    
+    // Global InAppBrowser reference
+    var iabRef = null;
+
+    function iabLoadStart(event) {
+        alert(event.type + ' - ' + event.url);
+    }
+
+    function iabLoadStop(event) {
+        alert(event.type + ' - ' + event.url);
+    }
+
+    function iabLoadError(event) {
+        alert(event.type + ' - ' + event.message);
+    }
+
+    function iabClose(event) {
+         alert(event.type);
+         iabRef.removeEventListener('loadstart', iabLoadStart);
+         iabRef.removeEventListener('loadstop', iabLoadStop);
+         iabRef.removeEventListener('loaderror', iabLoadError);
+         iabRef.removeEventListener('exit', iabClose);
+    }
+
+    function windowOpen(){
+    	iabRef = window.open('http://apache.org', '_blank', 'location=yes');
+         iabRef.addEventListener('loadstart', iabLoadStart);
+         iabRef.addEventListener('loadstop', iabLoadStop);
+         iabRef.addEventListener('loaderror', iabLoadError);
+         iabRef.addEventListener('exit', iabClose);
+    
+    }
+    
+</script>
