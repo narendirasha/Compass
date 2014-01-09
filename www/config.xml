@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.example.Compass" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Compass...</name>
+    <name>Compass new</name>
     <description>
         Compass rotation
     </description>
@@ -8,6 +8,9 @@
         PhoneGap Team
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
+    <feature name="Vibration">
+    	<param name="android-package" value="org.apache.cordova.vibration.Vibration" />
+	</feature>
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
