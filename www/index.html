@@ -6,15 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-		<script src="script/jquery.rotate-1.0.1.js"></script>
-
+		
 		<style>
 			#compass {
 
-				position: relative;
+				position: relative; 
 				top: 0px;
 				z-index: 1;
 			}
@@ -42,12 +38,10 @@
 				background: transparent;
 			}
 		</style>
-
-	</head>
-
-	<body  >
-
+		
 		<script>
+		
+			var watchID = null;
 			document.addEventListener("deviceready", onDeviceReady, false)
 
 			function onDeviceReady() {
@@ -57,15 +51,14 @@
 			}
 
 			function startCompass() {
-				var options = {
-					frequency : 50
-				};
+				var options = { frequency: 3000 };
 
-				navigator.compass.watchHeading(onSuccess, onError, options);
+        		watchID = navigator.compass.watchHeading(onSuccess, onError, options);
 			}
 
 			function onSuccess(heading) {
-				$("#needle").jqrotate(-heading.magneticHeading);
+        		$("#heading").innerHTML = 'Heading: ' + heading.magneticHeading;
+        		$("#needle").jqrotate(-heading.magneticHeading);
 
 			}
 
@@ -117,6 +110,12 @@
 
 		</script>
 
+	</head>
+
+	<body  >
+
+		
+
 		<div data-role="page" id="page1" data-theme="e">
 
 			<div data-role="header" data-position="fixed" >
@@ -139,6 +138,8 @@
 				<button onclick="windowOpen()">
 					open Window
 				</button>
+				
+				<div id="heading">Waiting for heading...</div>
 
 			</div>
 
@@ -147,6 +148,12 @@
 			</div>
 
 		</div>
+		
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="script/jquery.rotate-1.0.1.js"></script>
+
 
 	</body>
 
